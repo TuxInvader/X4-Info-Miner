@@ -44,7 +44,7 @@ The `x4-save-miner.py` script is used to extract useful information from any sav
 
 Usage:
 ```
-usage: x4-save-miner.py [-h] [-o] [-l] [-d] [-e] [-c CODE] [-p] [-w] [-r] [-x] [-k] [-K] [-X XML] [-q] [-i INFO] [-f] [-s] savefile
+usage: x4-save-miner.py [-h] [-o] [-l] [-d] [-e] [-c CODE] [-p] [-w] [-r] [-x] [-k] [-K] [-b] [-B] [-X XML] [-q] [-i INFO] [-f] [-s] savefile
 
 positional arguments:
   savefile              The savegame you want to analyse
@@ -62,6 +62,9 @@ options:
   -x, --xenon           Display Xenon ship locations
   -k, --khaak           Display Khaak ship locations
   -K, --khaakstations   Display Khaak Station locations
+  -b, --buccaneers      Display Duke's Buccaneers ship locations
+  -B, --buccaneerstations
+                        Display Duke's Buccaneers Station locations
   -X XML, --xml XML     Dump the XML for a specific resource by code
   -q, --quiet           Suppress warnings in interactive mode
   -i INFO, --info INFO  information level [1-3]. Default is 1 (sector only)
@@ -247,7 +250,8 @@ Fetch interesting (special) resources
 
 Or you know, just use python. The root of the xml tree is in var `root`. Other vars include:
 lists:      sectors duplicates warnings allComponents allStations allShips freeShips
-            xenonShips khaakShips dataVaults erlkingVaults lockboxes flotsam other
+            xenonShips khaakShips khaakStations bucShips bucStations dataVaults
+            erlkingVaults lockboxes flotsam other
 dicts:      sectorNames sectorCodes shipCodes stationCodes vaultCodes lockboxCodes allCodes
             ignoredConnections sector_zone_offsets sector_macros
 

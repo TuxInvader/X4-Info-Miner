@@ -48,6 +48,8 @@ parser.add_argument("-r", "--wrecks", help="Include wrecks in output", action="s
 parser.add_argument("-x", "--xenon", help="Display Xenon ship locations", action="store_true")
 parser.add_argument("-k", "--khaak", help="Display Khaak ship locations", action="store_true")
 parser.add_argument("-K", "--khaakstations", help="Display Khaak Station locations", action="store_true")
+parser.add_argument("-b", "--buccaneers", help="Display Duke's Buccaneers ship locations", action="store_true")
+parser.add_argument("-B", "--buccaneerstations", help="Display Duke's Buccaneers Station locations", action="store_true")
 parser.add_argument("-X", "--xml", help="Dump the XML for a specific resource by code")
 parser.add_argument("-q", "--quiet", help="Suppress warnings in interactive mode", action="store_true")
 parser.add_argument("-i", "--info", help="information level [1-3]. Default is 1 (sector only)", default='1')
@@ -72,6 +74,8 @@ freeShips = []
 xenonShips = []
 khaakShips = []
 khaakStations = []
+bucShips = []
+bucStations = []
 dataVaults = []
 erlkingVaults = []
 lockboxes = []
@@ -566,6 +570,8 @@ for sector in sectors:
             if resource.get('owner') == "khaak":
                 if "weaponplatform" not in resource.get('macro'):
                     khaakStations += [ resource ]
+            elif resource.get('owner') == "buccaneers":
+                bucStations += [ resource ]
             updateStatsInfo(stats, resource.get('owner'), "stations")
         elif connection == "ships":
             if (resource.get('state') == "wreck"):
@@ -577,6 +583,8 @@ for sector in sectors:
                 xenonShips += [resource]
             elif (resource.get('owner') == "khaak"):
                 khaakShips += [resource]
+            elif (resource.get('owner') == "buccaneers"):
+                bucShips += [resource]
             allShips += [resource]
             if myCode != None:
                 shipCodes[myCode] = resource
@@ -653,6 +661,20 @@ if args.khaakstations:
         updateObject(ks, args.proximity)
         printShip(ks, args.info)
 
+if args.buccaneers:
+    print("\nDuke's Buccaneers Locations")
+    print("===============")
+    for b in bucShips:
+        updateObject(b, args.proximity)
+        printShip(b, args.info)
+
+if args.buccaneerstations:
+    print("\nDuke's Buccaneers Station Locations")
+    print("===============")
+    for bs in bucStations:
+        updateObject(bs, args.proximity)
+        printShip(bs, args.info)
+
 if args.whereswally:
     print("\nPlayer Location")
     print("===============")
@@ -723,7 +745,8 @@ if args.shell:
     print("")
     print("Or you know, just use python. The root of the xml tree is in var `root`. Other vars include:")
     print("lists:      sectors duplicates warnings allComponents allStations allShips freeShips")
-    print("            xenonShips khaakShips dataVaults erlkingVaults lockboxes flotsam other")
+    print("            xenonShips khaakShips khaakStations bucShips bucStations dataVaults")
+    print("            erlkingVaults lockboxes flotsam other")
     print("dicts:      sectorNames sectorCodes shipCodes stationCodes vaultCodes lockboxCodes allCodes")
     print("            ignoredConnections sector_zone_offsets sector_macros")
     print("")
