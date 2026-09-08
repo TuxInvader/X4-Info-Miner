@@ -224,6 +224,9 @@ def getProximity(obj):
     sectorObjects = getSectorObjects(sectorCode)
     oLocation = getPosition(obj)
     for station in sectorObjects['stations']:
+        # A station is always its own nearest neighbour, which tells the player nothing
+        if station is obj:
+            continue
         owner = station.get('owner')
         if owner in ["khaak", "xenon"]:
             continue
