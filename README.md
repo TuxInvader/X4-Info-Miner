@@ -7,6 +7,14 @@ The only requirement besides the standard python libraries is lxml
 pip3 install lxml
 ```
 
+If you would rather not install lxml globally, create a virtual environment in the repo and use its interpreter directly:
+```
+python3 -m venv venv
+venv/bin/pip3 install -r requirements.txt
+venv/bin/python3 x4-save-miner.py save.xml -o
+```
+On Windows the venv puts these in `venv\Scripts\` rather than `venv/bin/`.
+
 ## Changes
 
 * 2025-05-05: Ver 1.0.8
