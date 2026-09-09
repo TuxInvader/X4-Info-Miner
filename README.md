@@ -7,6 +7,22 @@ The only requirement besides the standard python libraries is lxml
 pip3 install lxml
 ```
 
+If you would rather not install lxml globally, create a virtual environment in the repo and use its interpreter directly.
+
+On Linux and macOS:
+```
+python3 -m venv venv
+venv/bin/pip3 install -r requirements.txt
+venv/bin/python3 x4-save-miner.py save.xml -o
+```
+
+On Windows:
+```
+py -m venv venv
+venv\Scripts\pip3 install -r requirements.txt
+venv\Scripts\python x4-save-miner.py save.xml -o
+```
+
 ## Changes
 
 * 2025-05-05: Ver 1.0.8
@@ -44,7 +60,7 @@ The `x4-save-miner.py` script is used to extract useful information from any sav
 
 Usage:
 ```
-usage: x4-save-miner.py [-h] [-o] [-l] [-d] [-e] [-c CODE] [-p] [-w] [-r] [-x] [-k] [-K] [-X XML] [-q] [-i INFO] [-f] [-s] savefile
+usage: x4-save-miner.py [-h] [-o] [-l] [-d] [-e] [-c CODE] [-p] [-w] [-r] [-x] [-k] [-K] [-b] [-B] [-X XML] [-q] [-i INFO] [-f] [-s] savefile
 
 positional arguments:
   savefile              The savegame you want to analyse
@@ -62,6 +78,9 @@ options:
   -x, --xenon           Display Xenon ship locations
   -k, --khaak           Display Khaak ship locations
   -K, --khaakstations   Display Khaak Station locations
+  -b, --buccaneers      Display Duke's Buccaneers ship locations
+  -B, --buccaneerstations
+                        Display Duke's Buccaneers Station locations
   -X XML, --xml XML     Dump the XML for a specific resource by code
   -q, --quiet           Suppress warnings in interactive mode
   -i INFO, --info INFO  information level [1-3]. Default is 1 (sector only)
@@ -247,7 +266,8 @@ Fetch interesting (special) resources
 
 Or you know, just use python. The root of the xml tree is in var `root`. Other vars include:
 lists:      sectors duplicates warnings allComponents allStations allShips freeShips
-            xenonShips khaakShips dataVaults erlkingVaults lockboxes flotsam other
+            xenonShips khaakShips khaakStations bucShips bucStations dataVaults
+            erlkingVaults lockboxes flotsam other
 dicts:      sectorNames sectorCodes shipCodes stationCodes vaultCodes lockboxCodes allCodes
             ignoredConnections sector_zone_offsets sector_macros
 
