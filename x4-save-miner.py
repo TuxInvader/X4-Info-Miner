@@ -353,13 +353,14 @@ def printLbDv(resources, title, level=1):
         proximity = resource.get('proximity')
         if proximity != None:
             proximity = json.loads(proximity)
+        location = resource.get('location') if resource.get('location') != None else ""
         wares = resource.findall(".//ware")
         blueprints = resource.findall(".//component[@class='collectableblueprints']")
         cwares = resource.findall(".//component[@class='collectablewares']")
         print("\n" + title + ": " + resource.get('code') + ", Known2Player: " + known2Player + 
               "\n  Sector: " + sectorName + " (" + resource.get('sector_code') + ")")
         if int(level) > 1 or proximity != None:
-            print("  Location: " + resource.get('location') + "\n")
+            print("  Location: " + str(location) + "\n")
         if proximity:
             for info in proximity:
                 print("            " + info )
@@ -379,7 +380,8 @@ def printLbDv(resources, title, level=1):
         print("")
 
 def printShip(ship, level=1):
-    title = ship.get('class')
+    shipClass = ship.get('class') if ship.get('class') != None else ""
+    title = shipClass
     if title.startswith('ship'):
         title = "Ship"
     elif title == "station":
@@ -392,12 +394,13 @@ def printShip(ship, level=1):
     proximity = ship.get('proximity')
     if proximity != None:
         proximity = json.loads(proximity)
-    print("\n" + title + ": " + ship.get('code') + ", Class: " + ship.get('class') + ", Name: " + shipName +
+    location = ship.get('location') if ship.get('location') != None else ""
+    print("\n" + title + ": " + ship.get('code') + ", Class: " + shipClass + ", Name: " + shipName +
             "\n  Macro: " + ship.get('macro') + "\n  SpawnTime: " + ship.get('spawntime') + "\n  State: " + shipState +
             "\n  Sector: " + sectorName + " (" + ship.get('sector_code') + ")" +
             "\n  Owner: " + ship.get('owner'))
     if int(level) > 1 or proximity != None:
-        print("  Location: " + ship.get('location') + "\n")
+        print("  Location: " + str(location) + "\n")
     if proximity:
         for info in proximity:
             print("            " + info )
