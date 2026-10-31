@@ -694,18 +694,20 @@ if args.factions:
     lines = 0
     for faction in stats:
         lines += 1
+        faction_data = stats[faction]
         line = faction.capitalize() + (" " * (14 - len(faction)))
         for resource in ["sectors", "stations", "ships"]:
-            if resource in stats[faction]:
-                res = str(stats[faction][resource]['total'])
+            if resource in faction_data:
+                res = str(faction_data[resource]['total'])
                 line += (" " * (3 + len(resource) - len(res))) + res 
             else:
                 line += (" " * (2 + len(resource))) + "-"
         line += " |"
+        ship_data = faction_data.get('ships', {})
         for ship in ["ship_xs", "ship_s", "ship_m", "ship_l", "ship_xl"]:
             sub = ship.split('_')[1]
-            if ship in stats[faction]['ships']:
-                res = str(stats[faction]['ships'][ship])
+            if ship in ship_data:
+                res = str(ship_data[ship])
                 line += (" " * (5 + len(sub) - len(res))) + res 
             else:
                 line += (" " * (4 + len(sub))) + "-"
